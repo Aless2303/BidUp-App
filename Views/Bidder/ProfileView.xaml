@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="BidUp_App.Views.Bidder.ProfileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="Auto" Width="Auto">
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock Text="Profile" FontSize="38" FontWeight="Bold" Margin="0,0,0,10"/>
+            <TextBlock Text="Full Name:" FontWeight="Bold" FontSize="20"/>
+            <TextBlock x:Name="FullNameTextBlock" Margin="0,0,0,10" FontSize="16"/>
+            <TextBlock Text="Email:" FontWeight="Bold" FontSize="20"/>
+            <TextBlock x:Name="EmailTextBlock" Margin="0,0,0,10" FontSize="16"/>
+            <TextBlock Text="Date of Birth:" FontWeight="Bold" FontSize="20"/>
+            <TextBlock x:Name="DateOfBirthTextBlock" Margin="0,0,0,10" FontSize="16"/>
+            <TextBlock Text="Role:" FontWeight="Bold" FontSize="20"/>
+            <TextBlock x:Name="RoleTextBlock" Margin="0,0,0,10" FontSize="16"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

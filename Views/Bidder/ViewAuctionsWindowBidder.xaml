@@ -9,15 +9,35 @@
     </Window.Resources>
 
     <Grid Background="#F5F5F5">
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
-            <StackPanel>
-                <TextBlock Text="Available Auctions" 
-                           FontSize="24" 
-                           FontWeight="Bold" 
-                           Foreground="#2C3E50" 
-                           Margin="0,0,0,20" 
-                           HorizontalAlignment="Center"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Sticky Section -->
+            <RowDefinition Height="*"/>
+            <!-- Auctions Content -->
+            <RowDefinition Height="Auto"/>
+            <!-- Sticky Refresh Button -->
+        </Grid.RowDefinitions>
 
+          
+        <!-- Sticky Section -->
+        <DockPanel Grid.Row="0" Background="#2C3E50" >
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                <!-- Wallet Information -->
+                <TextBlock Text="Wallet: " FontSize="16" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" Margin="20,20,0,0"/>
+                <TextBlock x:Name="WalletBalanceText" FontSize="16" Foreground="LightGray" VerticalAlignment="Center" Margin="20,20,0,0"/>
+            </StackPanel>
+            <!-- Title -->
+            <TextBlock Text="Available Auctions" 
+                       FontSize="24" 
+                       FontWeight="Bold" 
+                       Foreground="White" 
+                       Margin="0,0,0,20" 
+                       HorizontalAlignment="Center"/>
+        </DockPanel>
+
+        <!-- Main Content (Auctions List) -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10" Grid.Row="1">
+            <StackPanel>
                 <ItemsControl x:Name="AuctionsList">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -42,7 +62,6 @@
                                         </TextBlock>
                                         <TextBlock Text="Time Left:" FontWeight="Bold" Foreground="#34495E" Margin="0,10,0,0"/>
                                         <TextBlock Text="{Binding RemainingTime}" FontSize="14" Foreground="Gray"/>
-
                                     </StackPanel>
 
                                     <!-- Price Info -->
@@ -68,10 +87,7 @@
                                                Visibility="{Binding StartTime, Converter={StaticResource StartTimeVisibilityConverter}}"
                                                FontSize="14"
                                                Foreground="Gray"/>
-
                                 </StackPanel>
-
-                                      
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -89,6 +105,7 @@
             HorizontalAlignment="Left" 
             VerticalAlignment="Bottom" 
             Margin="10" 
-            Click="RefreshButton_Click"/>   
+            Grid.Row="2"
+            Click="RefreshButton_Click"/>
     </Grid>
 </Window>

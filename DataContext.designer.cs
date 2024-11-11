@@ -45,10 +45,13 @@ namespace BidUp_App
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertWallet(Wallet instance);
+    partial void UpdateWallet(Wallet instance);
+    partial void DeleteWallet(Wallet instance);
     #endregion
 		
 		public DataContextDataContext() : 
-				base(global::BidUp_App.Properties.Settings.Default.BidUp_AppConnectionString1, mappingSource)
+				base(global::BidUp_App.Properties.Settings.Default.BidUp_AppConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -114,6 +117,14 @@ namespace BidUp_App
 			get
 			{
 				return this.GetTable<User>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Wallet> Wallets
+		{
+			get
+			{
+				return this.GetTable<Wallet>();
 			}
 		}
 	}
@@ -215,7 +226,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
 		public string ProductName
 		{
 			get
@@ -663,7 +674,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardNumber", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardNumber", DbType="NVarChar(20) NOT NULL", CanBeNull=false)]
 		public string CardNumber
 		{
 			get
@@ -683,7 +694,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardHolderName", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardHolderName", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
 		public string CardHolderName
 		{
 			get
@@ -723,7 +734,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CVV", DbType="VarChar(5) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CVV", DbType="NVarChar(5) NOT NULL", CanBeNull=false)]
 		public string CVV
 		{
 			get
@@ -767,7 +778,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Balance", DbType="Decimal(18,2)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Balance", DbType="Decimal(18,0)")]
 		public System.Nullable<decimal> Balance
 		{
 			get
@@ -1177,7 +1188,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
 		public string ProductName
 		{
 			get
@@ -1197,7 +1208,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)")]
 		public string Description
 		{
 			get
@@ -1217,7 +1228,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductImagePath", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductImagePath", DbType="NVarChar(MAX)")]
 		public string ProductImagePath
 		{
 			get
@@ -1237,7 +1248,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category", DbType="NVarChar(50)")]
 		public string Category
 		{
 			get
@@ -1413,6 +1424,8 @@ namespace BidUp_App
 		
 		private EntitySet<Product> _Products;
 		
+		private EntitySet<Wallet> _Wallets;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1442,6 +1455,7 @@ namespace BidUp_App
 			this._Cards = new EntitySet<Card>(new Action<Card>(this.attach_Cards), new Action<Card>(this.detach_Cards));
 			this._Notifications = new EntitySet<Notification>(new Action<Notification>(this.attach_Notifications), new Action<Notification>(this.detach_Notifications));
 			this._Products = new EntitySet<Product>(new Action<Product>(this.attach_Products), new Action<Product>(this.detach_Products));
+			this._Wallets = new EntitySet<Wallet>(new Action<Wallet>(this.attach_Wallets), new Action<Wallet>(this.detach_Wallets));
 			OnCreated();
 		}
 		
@@ -1465,7 +1479,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
 		public string FullName
 		{
 			get
@@ -1485,7 +1499,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
 		public string Email
 		{
 			get
@@ -1505,7 +1519,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PasswordHash", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PasswordHash", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
 		public string PasswordHash
 		{
 			get
@@ -1525,7 +1539,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Role", DbType="VarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Role", DbType="NVarChar(20)")]
 		public string Role
 		{
 			get
@@ -1565,7 +1579,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProfilePicturePath", DbType="VarChar(500)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProfilePicturePath", DbType="NVarChar(500)")]
 		public string ProfilePicturePath
 		{
 			get
@@ -1670,6 +1684,19 @@ namespace BidUp_App
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Wallet", Storage="_Wallets", ThisKey="UserID", OtherKey="UserID")]
+		public EntitySet<Wallet> Wallets
+		{
+			get
+			{
+				return this._Wallets;
+			}
+			set
+			{
+				this._Wallets.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1748,6 +1775,193 @@ namespace BidUp_App
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
+		}
+		
+		private void attach_Wallets(Wallet entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_Wallets(Wallet entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Wallets")]
+	public partial class Wallet : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _WalletID;
+		
+		private int _UserID;
+		
+		private decimal _Balance;
+		
+		private System.DateTime _LastUpdated;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnWalletIDChanging(int value);
+    partial void OnWalletIDChanged();
+    partial void OnUserIDChanging(int value);
+    partial void OnUserIDChanged();
+    partial void OnBalanceChanging(decimal value);
+    partial void OnBalanceChanged();
+    partial void OnLastUpdatedChanging(System.DateTime value);
+    partial void OnLastUpdatedChanged();
+    #endregion
+		
+		public Wallet()
+		{
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WalletID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int WalletID
+		{
+			get
+			{
+				return this._WalletID;
+			}
+			set
+			{
+				if ((this._WalletID != value))
+				{
+					this.OnWalletIDChanging(value);
+					this.SendPropertyChanging();
+					this._WalletID = value;
+					this.SendPropertyChanged("WalletID");
+					this.OnWalletIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int NOT NULL")]
+		public int UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Balance", DbType="Decimal(18,2) NOT NULL")]
+		public decimal Balance
+		{
+			get
+			{
+				return this._Balance;
+			}
+			set
+			{
+				if ((this._Balance != value))
+				{
+					this.OnBalanceChanging(value);
+					this.SendPropertyChanging();
+					this._Balance = value;
+					this.SendPropertyChanged("Balance");
+					this.OnBalanceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastUpdated", DbType="DateTime NOT NULL")]
+		public System.DateTime LastUpdated
+		{
+			get
+			{
+				return this._LastUpdated;
+			}
+			set
+			{
+				if ((this._LastUpdated != value))
+				{
+					this.OnLastUpdatedChanging(value);
+					this.SendPropertyChanging();
+					this._LastUpdated = value;
+					this.SendPropertyChanged("LastUpdated");
+					this.OnLastUpdatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Wallet", Storage="_User", ThisKey="UserID", OtherKey="UserID", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.Wallets.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.Wallets.Add(this);
+						this._UserID = value.UserID;
+					}
+					else
+					{
+						this._UserID = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

@@ -14,13 +14,14 @@ namespace BidUp_App.Views.Bidder
         private DispatcherTimer _timer;
         private DispatcherTimer _notificationTimer; // Timer pentru notificări
 
+
         public ViewAuctionsWindowBidder(int currentBidderId)
         {
             InitializeComponent();
             _dbContext = new DataContextDataContext();
             _currentBidderId = currentBidderId;
             LoadAuctions();
-
+            UpdateWalletBalance();
             CheckNotifications();
 
             // Inițializează și pornește timerul
@@ -69,7 +70,12 @@ namespace BidUp_App.Views.Bidder
             AuctionsList.ItemsSource = auctions;
         }
 
-
+        private void UpdateWalletBalance()
+        {
+            _dbContext.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, _dbContext.Wallets);
+            var wallet = _dbContext.Wallets.FirstOrDefault(w => w.UserID == _currentBidderId);
+            WalletBalanceText.Text = wallet != null ? $"{wallet.Balance:C}" : "$0.00";
+        }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -132,6 +138,7 @@ namespace BidUp_App.Views.Bidder
                     {
                         // Reîncarcă lista de licitații după plasarea unui bid
                         LoadAuctions();
+                        UpdateWalletBalance();
                     }
                 }
                 else
@@ -170,7 +177,6 @@ namespace BidUp_App.Views.Bidder
         }
 
 
-
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             // Oprește temporar timerul pentru a preveni conflicte
@@ -179,10 +185,12 @@ namespace BidUp_App.Views.Bidder
             // Reîncarcă lista de licitații
             LoadAuctions();
 
+            // Reîncarcă soldul portofelului
+            UpdateWalletBalance();
+
             // Repornim timerul după reîmprospătare
             _timer.Start();
 
-            MessageBox.Show("Auctions list refreshed successfully!", "Refresh", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
 

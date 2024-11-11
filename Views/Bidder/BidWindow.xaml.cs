@@ -24,7 +24,7 @@ namespace BidUp_App.Views.Bidder
             try
             {
                 // Verifică dacă valoarea introdusă este validă
-                if (string.IsNullOrEmpty(BidAmountTextBox.Text) || !double.TryParse(BidAmountTextBox.Text, out double bidAmount))
+                if (string.IsNullOrEmpty(BidAmountTextBox.Text) || !decimal.TryParse(BidAmountTextBox.Text, out decimal bidAmount))
                 {
                     MessageBox.Show("Please enter a valid bid amount.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -39,39 +39,55 @@ namespace BidUp_App.Views.Bidder
                 }
 
                 // Verifică dacă valoarea licitată este mai mare decât prețul curent
-                if (bidAmount <= auction.CurrentPrice)
+                if (bidAmount <= (decimal)auction.CurrentPrice)
                 {
                     MessageBox.Show("The bid amount must be higher than the current price.", "Invalid Bid", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                // Actualizează prețul curent și licitantul curent în baza de date
-                auction.CurrentPrice = bidAmount;
-                auction.CurrentBidderID = _currentBidderId;
-
-                // Salvează modificările
-                _dbContext.SubmitChanges();
-
-
-                if (auction.CurrentBidderID != null && auction.CurrentBidderID!= _currentBidderId)
+                // Obține portofelul utilizatorului curent
+                var currentBidderWallet = _dbContext.Wallets.FirstOrDefault(w => w.UserID == _currentBidderId);
+                if (currentBidderWallet == null || currentBidderWallet.Balance < bidAmount)
                 {
-                    // Salvează `CurrentBidderID` anterior pentru notificare
-                    int previousBidderId = (int)auction.CurrentBidderID;
+                    MessageBox.Show("You do not have enough funds in your wallet to place this bid.", "Insufficient Funds", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
-                    // Salvează notificarea pentru `previousBidderId`
-                    if (previousBidderId > 0) // Dacă există un licitant anterior
+                // Verifică dacă există un licitant anterior
+                if (auction.CurrentBidderID != null)
+                {
+                    int previousBidderId = auction.CurrentBidderID.Value;
+
+                    // Obține portofelul licitantului anterior
+                    var previousBidderWallet = _dbContext.Wallets.FirstOrDefault(w => w.UserID == previousBidderId);
+                    if (previousBidderWallet != null)
                     {
-                        var notification = new Notification
-                        {
-                            BidderID = previousBidderId,
-                            AuctionID = auction.AuctionID,
-                            Message = $"Another user has placed a higher bid of {bidAmount:C} for {auction.ProductName}.",
-                            CreatedAt = DateTime.Now
-                        };
-                        _dbContext.Notifications.InsertOnSubmit(notification);
-                        _dbContext.SubmitChanges();
+                        // Returnează banii licitantului anterior
+                        previousBidderWallet.Balance += (decimal)auction.CurrentPrice;
+
+                        // Adaugă notificare pentru licitantul anterior
+                        //var notification = new Notification
+                        //{
+                        //    BidderID = previousBidderId,
+                        //    AuctionID = auction.AuctionID,
+                        //    Message = $"Your previous bid of {auction.CurrentPrice:C} was outbid for {auction.ProductName}.",
+                        //    CreatedAt = DateTime.Now,
+                        //    IsRead = false
+                        //};
+                        //_dbContext.Notifications.InsertOnSubmit(notification);
                     }
                 }
+
+                // Scade fondurile din portofelul utilizatorului curent
+                currentBidderWallet.Balance -= bidAmount;
+
+                // Actualizează datele licitației
+                auction.CurrentPrice = (double)bidAmount;
+                auction.CurrentBidderID = _currentBidderId;
+
+
+                // Salvează modificările în baza de date
+                _dbContext.SubmitChanges();
 
                 MessageBox.Show("Your bid has been placed successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -83,6 +99,7 @@ namespace BidUp_App.Views.Bidder
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
