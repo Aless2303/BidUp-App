@@ -65,16 +65,16 @@ namespace BidUp_App.Views.Bidder
                         // Returnează banii licitantului anterior
                         previousBidderWallet.Balance += (decimal)auction.CurrentPrice;
 
-                        // Adaugă notificare pentru licitantul anterior
-                        //var notification = new Notification
-                        //{
-                        //    BidderID = previousBidderId,
-                        //    AuctionID = auction.AuctionID,
-                        //    Message = $"Your previous bid of {auction.CurrentPrice:C} was outbid for {auction.ProductName}.",
-                        //    CreatedAt = DateTime.Now,
-                        //    IsRead = false
-                        //};
-                        //_dbContext.Notifications.InsertOnSubmit(notification);
+                        //Adaugă notificare pentru licitantul anterior
+                       var notification = new Notification
+                       {
+                           BidderID = previousBidderId,
+                           AuctionID = auction.AuctionID,
+                           Message = $"Your previous bid of {auction.CurrentPrice:C} was outbid for {auction.ProductName}.",
+                           CreatedAt = DateTime.Now,
+                           IsRead = false
+                       };
+                        _dbContext.Notifications.InsertOnSubmit(notification);
                     }
                 }
 

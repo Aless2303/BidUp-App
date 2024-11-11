@@ -1,12 +1,12 @@
-﻿<Window x:Class="BidUp_App.Views.Bidder.ViewAuctionsWindowBidder"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:BidUp_App.Converters"
-        Title="View Auctions" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
-    <Window.Resources>
+﻿<UserControl x:Class="BidUp_App.Views.Bidder.ViewAuctionsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BidUp_App.Converters"
+             Height="600" Width="1000">
+    <UserControl.Resources>
         <local:StartTimeConverter x:Key="StartTimeConverter"/>
         <local:StartTimeVisibilityConverter x:Key="StartTimeVisibilityConverter"/>
-    </Window.Resources>
+    </UserControl.Resources>
 
     <Grid Background="#F5F5F5">
         <Grid.RowDefinitions>
@@ -18,9 +18,8 @@
             <!-- Sticky Refresh Button -->
         </Grid.RowDefinitions>
 
-          
         <!-- Sticky Section -->
-        <DockPanel Grid.Row="0" Background="#2C3E50" >
+        <DockPanel Grid.Row="0" Background="#2C3E50">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                 <!-- Wallet Information -->
                 <TextBlock Text="Wallet: " FontSize="16" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" Margin="20,20,0,0"/>
@@ -108,4 +107,4 @@
             Grid.Row="2"
             Click="RefreshButton_Click"/>
     </Grid>
-</Window>
+</UserControl>

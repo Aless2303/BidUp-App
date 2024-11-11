@@ -17,7 +17,13 @@ namespace BidUp_App.Models.Interfaces
 
         string m_password { get; set; }
         public string ProfilePicturePath { get; set; }
-        // lista notificari
+        // lista
+        //
+        //
+        //
+        //
+        //
+        // cari
         // card
         void displayDasboard();
     }
