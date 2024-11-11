@@ -1,0 +1,94 @@
+﻿<Window x:Class="BidUp_App.Views.Bidder.ViewAuctionsWindowBidder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:BidUp_App.Converters"
+        Title="View Auctions" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local:StartTimeConverter x:Key="StartTimeConverter"/>
+        <local:StartTimeVisibilityConverter x:Key="StartTimeVisibilityConverter"/>
+    </Window.Resources>
+
+    <Grid Background="#F5F5F5">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
+            <StackPanel>
+                <TextBlock Text="Available Auctions" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Foreground="#2C3E50" 
+                           Margin="0,0,0,20" 
+                           HorizontalAlignment="Center"/>
+
+                <ItemsControl x:Name="AuctionsList">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Margin="5" Padding="10" Background="White">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <!-- Image -->
+                                    <Image Source="{Binding ProductImagePath}" 
+                                           Width="100" 
+                                           Height="100" 
+                                           Margin="5" 
+                                           Stretch="UniformToFill"/>
+
+                                    <!-- Auction Details -->
+                                    <StackPanel Margin="10" Width="400">
+                                        <TextBlock Text="{Binding ProductName}" FontSize="16" FontWeight="Bold" Foreground="#34495E"/>
+                                        <TextBlock Text="{Binding Description}" FontSize="14" Foreground="Gray" TextWrapping="Wrap" Margin="0,5,0,5"/>
+                                        <TextBlock Text="Start Time: " FontWeight="Bold" Foreground="#34495E">
+                                            <Run Text="{Binding StartTime, StringFormat={}{0:MM/dd/yyyy HH:mm}}"/>
+                                        </TextBlock>
+                                        <TextBlock Text="End Time: " FontWeight="Bold" Foreground="#34495E">
+                                            <Run Text="{Binding EndTime, StringFormat={}{0:MM/dd/yyyy HH:mm}}"/>
+                                        </TextBlock>
+                                        <TextBlock Text="Time Left:" FontWeight="Bold" Foreground="#34495E" Margin="0,10,0,0"/>
+                                        <TextBlock Text="{Binding RemainingTime}" FontSize="14" Foreground="Gray"/>
+
+                                    </StackPanel>
+
+                                    <!-- Price Info -->
+                                    <StackPanel Margin="10" Width="150">
+                                        <TextBlock Text="Start Price:" FontWeight="Bold" Foreground="#34495E"/>
+                                        <TextBlock Text="{Binding StartingPrice}" FontSize="14" Foreground="Gray"/>
+                                        <TextBlock Text="Current Bid:" FontWeight="Bold" Foreground="#34495E" Margin="0,10,0,0"/>
+                                        <TextBlock Text="{Binding CurrentPrice}" FontSize="14" Foreground="Gray"/>
+                                    </StackPanel>
+
+                                    <!-- Bid Button -->
+                                    <Button Content="Bid"
+                                            Width="100"
+                                            Height="40"
+                                            Background="#3498DB"
+                                            Foreground="White"
+                                            FontWeight="SemiBold"
+                                            VerticalAlignment="Center"
+                                            CommandParameter="{Binding AuctionID}"
+                                            Click="BidButton_Click"
+                                            IsEnabled="{Binding StartTime, Converter={StaticResource StartTimeConverter}}"/>
+                                    <TextBlock Text="Auction not started yet"
+                                               Visibility="{Binding StartTime, Converter={StaticResource StartTimeVisibilityConverter}}"
+                                               FontSize="14"
+                                               Foreground="Gray"/>
+
+                                </StackPanel>
+
+                                      
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Sticky Refresh Button -->
+        <Button Content="Refresh" 
+            Width="100" 
+            Height="40" 
+            Background="#1abc9c" 
+            Foreground="White" 
+            FontWeight="Bold" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Bottom" 
+            Margin="10" 
+            Click="RefreshButton_Click"/>   
+    </Grid>
+</Window>

@@ -1,0 +1,93 @@
+﻿<Window x:Class="BidUp_App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BidUp_App.UserControls"
+        mc:Ignorable="d"
+        Title="SignInWindow" Height="645" Width="465" WindowStartupLocation="CenterScreen">
+
+    <Grid Background="#2c3e50">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Top Row with Background Color -->
+        <Border Grid.Row="0" Background="#1abc9c" Padding="10,5" CornerRadius="0,0,15,15">
+            <TextBlock Text="BidUp"
+                       FontSize="36"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" />
+        </Border>
+
+        <!-- Bottom Row for Sign In Form -->
+        <Border Grid.Row="1" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Center"
+                Background="#34495e" 
+                Width="320"
+                Padding="20"
+                CornerRadius="15">
+            <StackPanel>
+                <!-- Custom Email TextBox with Placeholder -->
+                <local:CustomTextBox x:Name="EmailTextBox"
+                                     Width="250"
+                                     Height="40"
+                                     Margin="0,10,0,10"
+                                     Placeholder="Enter your email" />
+
+                <!-- Custom Password TextBox -->
+                <local:CustomTextBox x:Name="PasswordTextBox"
+                                     Width="250"
+                                     Height="40"
+                                     Margin="0,10,0,10"
+                                     Placeholder="Enter your password" />
+
+                <!-- ComboBox for Selecting Role -->
+                <ComboBox Name="RoleComboBox"
+                          Width="250"
+                          Height="40"
+                          Margin="0,10,0,10"
+                          Foreground="Gray"
+                          VerticalContentAlignment="Center"
+                          HorizontalContentAlignment="Left"
+                          SelectedIndex="0">
+                    <ComboBoxItem Content="Select Role" IsEnabled="False" />
+                    <ComboBoxItem Content="Bidder" />
+                    <ComboBoxItem Content="Admin" />
+                    <ComboBoxItem Content="Seller" />
+                </ComboBox>
+
+                <!-- Buttons for Log In and Sign Up -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                    <!-- Log In Button with Larger Rounded Corners -->
+                    <Border CornerRadius="20" Margin="10,0,10,0">
+                        <Button Content="Log In"
+                                Width="120"
+                                Height="45"
+                                Background="#1abc9c"
+                                Foreground="White"
+                                FontWeight="SemiBold"
+                                BorderThickness="0" 
+                                Click="SignInButton_Click"/>
+                    </Border>
+
+                    <!-- Sign Up Button with Larger Rounded Corners -->
+                    <Border CornerRadius="20" Margin="10,0,10,0">
+                        <Button Content="Sign Up"
+                                Width="120"
+                                Height="45"
+                                Background="#3498db"
+                                Foreground="White"
+                                FontWeight="SemiBold"
+                                BorderThickness="0"
+                                Click="Button_Click_SignUp"/>
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

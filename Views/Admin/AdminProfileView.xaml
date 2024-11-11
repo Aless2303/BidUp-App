@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="BidUp_App.Views.Admin.AdminProfileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="650" Width="850">
+    <Grid>
+        <!-- Title Bar -->
+        <TextBlock Text="Profile" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0"/>
+
+        <!-- Profile Content Area -->
+        <Grid Margin="40,100,40,40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="350"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Profile Info (Left Side) -->
+            <StackPanel Grid.Column="0" Margin="70,70,20,0">
+                <!-- Profile Info -->
+                <TextBlock Text="Full Name:" FontWeight="Bold" FontSize="28"/>
+                <TextBlock x:Name="FullNameTextBlock" Margin="0,0,0,15" FontSize="24"/>
+
+                <TextBlock Text="Email:" FontWeight="Bold" FontSize="28"/>
+                <TextBlock x:Name="EmailTextBlock" Margin="0,0,0,15" FontSize="24"/>
+
+                <TextBlock Text="Date of Birth:" FontWeight="Bold" FontSize="28"/>
+                <TextBlock x:Name="DateOfBirthTextBlock" Margin="0,0,0,15" FontSize="24"/>
+
+                <TextBlock Text="Role:" FontWeight="Bold" FontSize="28"/>
+                <TextBlock x:Name="RoleTextBlock" Margin="0,0,0,15" FontSize="24"/>
+
+                <Button Content="View Card" Width="200" Height="50" Margin="0,30,0,0" Click="ViewCardButton_Click"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" x:Name="CardInfoPanel" Visibility="Hidden" Margin="0,420,0,0">
+                <TextBlock Text="Card Details" FontSize="24" FontWeight="Bold" Margin="0,0,0,15"/>
+                <TextBlock Text="Card Holder:" FontWeight="Bold" FontSize="20"/>
+                <TextBlock x:Name="CardHolderTextBlock" Margin="0,0,0,15" FontSize="20"/>
+                <TextBlock Text="Card Number:" FontWeight="Bold" FontSize="20"/>
+                <TextBlock x:Name="CardNumberTextBlock" Margin="0,0,0,15" FontSize="20"/>
+                <TextBlock Text="Expiry Date:" FontWeight="Bold" FontSize="20"/>
+                <TextBlock x:Name="ExpiryDateTextBlock" Margin="0,0,0,15" FontSize="20"/>
+            </StackPanel>
+
+            <!-- Profile Picture (Right Side) -->
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Border Width="200" Height="200" CornerRadius="100" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,120,0,0" BorderBrush="Gray" BorderThickness="3" Background="Transparent">
+                    <Image x:Name="ProfileImage" Stretch="Fill"/>
+                </Border>
+                <Button Content="Change Profile Picture" Margin="0,20,0,0" Click="ChangeProfilePicture_Click" FontSize="16"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
