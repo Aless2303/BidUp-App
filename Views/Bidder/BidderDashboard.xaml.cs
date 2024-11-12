@@ -97,8 +97,9 @@ namespace BidUp_App.Views.Bidder
 
         private void SeeLastBidsButton_Click(object sender, RoutedEventArgs e)
         {
-            // Load a different UserControl for last bids (if implemented)
-            MessageBox.Show("Load Last Bids View...");
+            // Încarcă `LastBidsView` în `ContentViewbox`
+            var lastBidsView = new LastBids(_user.m_userID);
+            ContentViewbox.Child = lastBidsView;
         }
 
 

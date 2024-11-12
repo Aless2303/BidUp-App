@@ -28,13 +28,6 @@ namespace BidUp_App.Views.Admin
             MainContent.Content = new ManageUsersView();  // Încarcă ManageUsersView
         }
 
-        // Handler pentru butonul "View Reports"
-        private void ViewReportsButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Încarcă secțiunea pentru rapoarte
-            MainContent.Content = new ViewReportsView();  // Încarcă ViewReportsView
-        }
-
         // Handler pentru butonul "Manage Auctions"
         private void ManageAuctionsButton_Click(object sender, RoutedEventArgs e)
         {

@@ -19,9 +19,15 @@ namespace BidUp_App.Views.Admin
         // Event handler for "Vezi Istoric" button
         private void ViewHistoryButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Viewing history for user: {_user.FullName}");
-            // Replace with your actual history logic if required
+            // Creăm un UserHistoryView și îl afișăm în MainContent din AdminDashboard
+            var userHistoryView = new UserHistoryView(_user.UserID);
+            var parentWindow = Application.Current.Windows.OfType<AdminDashboard>().FirstOrDefault();
+            if (parentWindow != null)
+            {
+                parentWindow.MainContent.Content = userHistoryView;  // Înlocuim conținutul principal
+            }
         }
+
 
         // Event handler for "Back" button
         private void BackButton_Click(object sender, RoutedEventArgs e)

@@ -32,14 +32,6 @@
                         HorizontalAlignment="Center"
                         Click="ManageUsersButton_Click"/>
 
-                <!-- View Reports Button -->
-                <Button Content="View Reports" 
-                        Width="160" 
-                        Height="40" 
-                        Margin="0,10" 
-                        HorizontalAlignment="Center"
-                        Click="ViewReportsButton_Click"/>
-
                 <!-- Manage Auctions Button -->
                 <Button Content="Manage Auctions" 
                         Width="160" 

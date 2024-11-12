@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="BidUp_App.Views.Admin.UserHistoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="450" Width="800"
+             Background="#1e1e2f">
+    <Border Background="#282846" CornerRadius="15" Padding="10" Margin="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Last Logs DataGrid -->
+            <DataGrid x:Name="LogsDataGrid" 
+                      AutoGenerateColumns="False" 
+                      Margin="0" 
+                      CanUserAddRows="False" 
+                      IsReadOnly="True" 
+                      Background="#1e1e2f" 
+                      Foreground="#FFFFFF" 
+                      BorderBrush="#3E3E5E"
+                      BorderThickness="1"
+                      FontSize="14"
+                      GridLinesVisibility="None"
+                      RowBackground="#2A2A3E"
+                      AlternatingRowBackground="#3E3E5E">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp}" Width="*" 
+                                        HeaderStyle="{StaticResource MinimalisticHeaderStyle}" />
+                    <DataGridTextColumn Header="Event Type" Binding="{Binding EventType}" Width="*" 
+                                        HeaderStyle="{StaticResource MinimalisticHeaderStyle}" />
+                    <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*" 
+                                        HeaderStyle="{StaticResource MinimalisticHeaderStyle}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Back Button -->
+            <Button Content="Back" 
+                    Width="100" 
+                    Height="40" 
+                    Grid.Row="1" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,10,10,0" 
+                    Click="BackButton_Click"/>
+        </Grid>
+    </Border>
+</UserControl>

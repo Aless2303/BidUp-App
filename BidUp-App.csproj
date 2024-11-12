@@ -342,6 +342,9 @@
     <Compile Include="Views\Admin\UserDetailsView.xaml.cs">
       <DependentUpon>UserDetailsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\UserHistoryView.xaml.cs">
+      <DependentUpon>UserHistoryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\ViewReportsView.xaml.cs">
       <DependentUpon>ViewReportsView.xaml</DependentUpon>
     </Compile>
@@ -354,8 +357,8 @@
     <Compile Include="Views\Bidder\BidWindow.xaml.cs">
       <DependentUpon>BidWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Bidder\LastBidsView.xaml.cs">
-      <DependentUpon>LastBidsView.xaml</DependentUpon>
+    <Compile Include="Views\Bidder\LastBids.xaml.cs">
+      <DependentUpon>LastBids.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Bidder\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>
@@ -412,6 +415,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Admin\UserHistoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Admin\ViewReportsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -428,7 +435,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Bidder\LastBidsView.xaml">
+    <Page Include="Views\Bidder\LastBids.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
