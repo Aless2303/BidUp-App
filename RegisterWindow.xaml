@@ -53,12 +53,129 @@
                                          Margin="0,10,0,10"
                                          Placeholder="Email" />
 
-                    <DatePicker x:Name="DateOfBirthPicker"
-                                Width="250"
-                                Height="40"
-                                Margin="0,10,0,0"
-                                SelectedDateFormat="Short"
-                                ToolTip="Select your birth date" />
+                    <TextBlock Text="Birthday DD/MM/YY" FontSize="14" FontWeight="Bold" Foreground="White" Margin="30,0,0,10"/>
+                    <StackPanel Orientation="Horizontal" Width="250" Height="25" Margin="0,0,0,0">
+                        <!-- Days ComboBox -->
+                        <ComboBox x:Name="BirthDayComboBox" Width="60" Margin="0,0,5,0">
+                            <ComboBox.ItemsSource>
+                                <x:Array Type="{x:Type sys:Int32}" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                    <!-- Days 1 to 31 -->
+                                    <sys:Int32>1</sys:Int32>
+                                    <sys:Int32>2</sys:Int32>
+                                    <sys:Int32>3</sys:Int32>
+                                    <sys:Int32>4</sys:Int32>
+                                    <sys:Int32>5</sys:Int32>
+                                    <sys:Int32>6</sys:Int32>
+                                    <sys:Int32>7</sys:Int32>
+                                    <sys:Int32>8</sys:Int32>
+                                    <sys:Int32>9</sys:Int32>
+                                    <sys:Int32>10</sys:Int32>
+                                    <sys:Int32>11</sys:Int32>
+                                    <sys:Int32>12</sys:Int32>
+                                    <sys:Int32>13</sys:Int32>
+                                    <sys:Int32>14</sys:Int32>
+                                    <sys:Int32>15</sys:Int32>
+                                    <sys:Int32>16</sys:Int32>
+                                    <sys:Int32>17</sys:Int32>
+                                    <sys:Int32>18</sys:Int32>
+                                    <sys:Int32>19</sys:Int32>
+                                    <sys:Int32>20</sys:Int32>
+                                    <sys:Int32>21</sys:Int32>
+                                    <sys:Int32>22</sys:Int32>
+                                    <sys:Int32>23</sys:Int32>
+                                    <sys:Int32>24</sys:Int32>
+                                    <sys:Int32>25</sys:Int32>
+                                    <sys:Int32>26</sys:Int32>
+                                    <sys:Int32>27</sys:Int32>
+                                    <sys:Int32>28</sys:Int32>
+                                    <sys:Int32>29</sys:Int32>
+                                    <sys:Int32>30</sys:Int32>
+                                    <sys:Int32>31</sys:Int32>
+                                </x:Array>
+                            </ComboBox.ItemsSource>
+                        </ComboBox>
+
+                        <!-- Months ComboBox -->
+                        <ComboBox x:Name="BirthMonthComboBox" Width="80" Margin="0,0,5,0">
+                            <ComboBox.ItemsSource>
+                                <x:Array Type="{x:Type sys:String}" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                    <sys:String>January</sys:String>
+                                    <sys:String>February</sys:String>
+                                    <sys:String>March</sys:String>
+                                    <sys:String>April</sys:String>
+                                    <sys:String>May</sys:String>
+                                    <sys:String>June</sys:String>
+                                    <sys:String>July</sys:String>
+                                    <sys:String>August</sys:String>
+                                    <sys:String>September</sys:String>
+                                    <sys:String>October</sys:String>
+                                    <sys:String>November</sys:String>
+                                    <sys:String>December</sys:String>
+                                </x:Array>
+                            </ComboBox.ItemsSource>
+                        </ComboBox>
+
+                        <!-- Years ComboBox -->
+                        <ComboBox x:Name="BirthYearComboBox" Width="90">
+                            <ComboBox.ItemsSource>
+                                <x:Array Type="{x:Type sys:Int32}" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                    <!-- Years from 1980 to 2030 -->
+                                    <sys:Int32>1980</sys:Int32>
+                                    <sys:Int32>1981</sys:Int32>
+                                    <sys:Int32>1982</sys:Int32>
+                                    <sys:Int32>1983</sys:Int32>
+                                    <sys:Int32>1984</sys:Int32>
+                                    <sys:Int32>1985</sys:Int32>
+                                    <sys:Int32>1986</sys:Int32>
+                                    <sys:Int32>1987</sys:Int32>
+                                    <sys:Int32>1988</sys:Int32>
+                                    <sys:Int32>1989</sys:Int32>
+                                    <sys:Int32>1990</sys:Int32>
+                                    <sys:Int32>1991</sys:Int32>
+                                    <sys:Int32>1992</sys:Int32>
+                                    <sys:Int32>1993</sys:Int32>
+                                    <sys:Int32>1994</sys:Int32>
+                                    <sys:Int32>1995</sys:Int32>
+                                    <sys:Int32>1996</sys:Int32>
+                                    <sys:Int32>1997</sys:Int32>
+                                    <sys:Int32>1998</sys:Int32>
+                                    <sys:Int32>1999</sys:Int32>
+                                    <sys:Int32>2000</sys:Int32>
+                                    <sys:Int32>2001</sys:Int32>
+                                    <sys:Int32>2002</sys:Int32>
+                                    <sys:Int32>2003</sys:Int32>
+                                    <sys:Int32>2004</sys:Int32>
+                                    <sys:Int32>2005</sys:Int32>
+                                    <sys:Int32>2006</sys:Int32>
+                                    <sys:Int32>2007</sys:Int32>
+                                    <sys:Int32>2008</sys:Int32>
+                                    <sys:Int32>2009</sys:Int32>
+                                    <sys:Int32>2010</sys:Int32>
+                                    <sys:Int32>2011</sys:Int32>
+                                    <sys:Int32>2012</sys:Int32>
+                                    <sys:Int32>2013</sys:Int32>
+                                    <sys:Int32>2014</sys:Int32>
+                                    <sys:Int32>2015</sys:Int32>
+                                    <sys:Int32>2016</sys:Int32>
+                                    <sys:Int32>2017</sys:Int32>
+                                    <sys:Int32>2018</sys:Int32>
+                                    <sys:Int32>2019</sys:Int32>
+                                    <sys:Int32>2020</sys:Int32>
+                                    <sys:Int32>2021</sys:Int32>
+                                    <sys:Int32>2022</sys:Int32>
+                                    <sys:Int32>2023</sys:Int32>
+                                    <sys:Int32>2024</sys:Int32>
+                                    <sys:Int32>2025</sys:Int32>
+                                    <sys:Int32>2026</sys:Int32>
+                                    <sys:Int32>2027</sys:Int32>
+                                    <sys:Int32>2028</sys:Int32>
+                                    <sys:Int32>2029</sys:Int32>
+                                    <sys:Int32>2030</sys:Int32>
+                                </x:Array>
+                            </ComboBox.ItemsSource>
+                        </ComboBox>
+                    </StackPanel>
+
 
                     <Grid Width="250" Height="40" Margin="0,10,0,10">
                         <PasswordBox Name="PasswordBox" Width="250" Height="40" Padding="10,10,0,0" PasswordChanged="PasswordBox_PasswordChanged" />
@@ -109,12 +226,11 @@
                                          Margin="0,10,0,10"
                                          Placeholder="Card Holder Name" />
 
-                    <DatePicker x:Name="ExpiryDatePicker"
-                                Width="250"
-                                Height="40"
-                                Margin="0,10,0,0"
-                                SelectedDateFormat="Short"
-                                ToolTip="Select expiry date" />
+                    <!-- Custom Expiry Date Format -->
+                    <local:CustomTextBox x:Name="ExpiryDateTextBox" Width="250"
+                      Height="40"
+                      Margin="0,10,0,10"
+                      Placeholder="MM/YY" />
 
                     <local:CustomTextBox x:Name="CVVTextBox" Width="250"
                                          Height="40"

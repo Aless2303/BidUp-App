@@ -47,7 +47,7 @@
                                      Placeholder="Enter your password" />
 
                 <!-- ComboBox for Selecting Role -->
-                <ComboBox Name="RoleComboBox"
+                <ComboBox x:Name="RoleComboBox"
                           Width="250"
                           Height="40"
                           Margin="0,10,0,10"

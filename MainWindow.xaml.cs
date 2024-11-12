@@ -2,6 +2,7 @@
 using BidUp_App.Models.Users;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace BidUp_App
@@ -17,6 +18,10 @@ namespace BidUp_App
         {
             string email = EmailTextBox.Text;
             string password = PasswordTextBox.Text;
+            string role = RoleComboBox.Text;
+            // Validate input fields
+            if (!ValidateInputs(email, password, role))
+                return;
 
             using (var context = new DataContextDataContext())
             {
@@ -28,6 +33,13 @@ namespace BidUp_App
 
                 if (dbUser != null)
                 {
+                    // Check if the role is valid
+                    if (string.IsNullOrEmpty(dbUser.Role) || !IsValidRole(dbUser.Role))
+                    {
+                        MessageBox.Show("Invalid role assigned to this user. Please contact support.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
                     // Create a User object based on the role
                     BidUp_App.Models.Users.User user = UserFactory.CreateUser(dbUser.Role);
 
@@ -79,6 +91,46 @@ namespace BidUp_App
                     MessageBox.Show("Invalid email or password. Please try again.", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+
+        private bool ValidateInputs(string email, string password, string role)
+        {
+            // Check if email and password are not empty
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Please enter both email and password.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            // Validate email format
+            if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                MessageBox.Show("Invalid email format. Please enter a valid email.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            // Validate role selection
+            if (string.IsNullOrEmpty(role) || role == "Select Role")
+            {
+                MessageBox.Show("Please select a valid role.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            // Password length validation
+            //if (password.Length < 6)
+            //{
+            //    MessageBox.Show("Password must be at least 6 characters long.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            //    return false;
+            //}
+
+            return true;
+        }
+
+        private bool IsValidRole(string role)
+        {
+            // Define the valid roles
+            string[] validRoles = { "Admin", "Bidder", "Seller" };
+            return validRoles.Contains(role);
         }
 
         private void Button_Click_SignUp(object sender, RoutedEventArgs e)
