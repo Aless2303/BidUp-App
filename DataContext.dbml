@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BidUp_App" Class="DataContextDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=BidUp_App;Integrated Security=True;Encrypt=True;Trust Server Certificate=True" SettingsObjectName="BidUp_App.Properties.Settings" SettingsPropertyName="BidUp_AppConnectionString2" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=ALESS\SQLEXPRESS;Initial Catalog=BidUp_App;Integrated Security=True" SettingsObjectName="BidUp_App.Properties.Settings" SettingsPropertyName="BidUp_AppConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Auctions" Member="Auctions">
     <Type Name="Auction">
       <Column Name="AuctionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ProductName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ProductName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="ProductImagePath" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="StartingPrice" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
@@ -23,12 +23,12 @@
   <Table Name="dbo.Cards" Member="Cards">
     <Type Name="Card">
       <Column Name="CardID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CardNumber" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="CardHolderName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="CardNumber" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="CardHolderName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="ExpiryDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="CVV" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="CVV" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
       <Column Name="OwnerUserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Balance" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Balance" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
       <Association Name="User_Card" Member="User" ThisKey="OwnerUserID" OtherKey="UserID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
   </Table>
@@ -47,10 +47,10 @@
   <Table Name="dbo.Products" Member="Products">
     <Type Name="Product">
       <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ProductName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="ProductImagePath" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ProductImagePath" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Category" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="CreationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="SellerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Product_Auction" Member="Auctions" ThisKey="ProductID" OtherKey="ProductID" Type="Auction" />
@@ -60,12 +60,12 @@
   <Table Name="dbo.Users" Member="Users">
     <Type Name="User">
       <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FullName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="PasswordHash" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="Role" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordHash" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Role" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="BirthDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="ProfilePicturePath" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="ProfilePicturePath" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="User_Auction" Member="Auctions" ThisKey="UserID" OtherKey="CurrentBidderID" Type="Auction" />
       <Association Name="User_Auction1" Member="Auctions1" ThisKey="UserID" OtherKey="SellerID" Type="Auction" />
@@ -82,6 +82,15 @@
       <Column Name="Balance" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
       <Column Name="LastUpdated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="User_Wallet" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Logs" Member="Logs">
+    <Type Name="Log">
+      <Column Name="LogID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EventType" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DynamicData" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

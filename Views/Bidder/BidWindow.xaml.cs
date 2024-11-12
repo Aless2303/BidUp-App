@@ -65,15 +65,15 @@ namespace BidUp_App.Views.Bidder
                         // Returnează banii licitantului anterior
                         previousBidderWallet.Balance += (decimal)auction.CurrentPrice;
 
-                        //Adaugă notificare pentru licitantul anterior
-                       var notification = new Notification
-                       {
-                           BidderID = previousBidderId,
-                           AuctionID = auction.AuctionID,
-                           Message = $"Your previous bid of {auction.CurrentPrice:C} was outbid for {auction.ProductName}.",
-                           CreatedAt = DateTime.Now,
-                           IsRead = false
-                       };
+                        // Adaugă notificare pentru licitantul anterior
+                        var notification = new Notification
+                        {
+                            BidderID = previousBidderId,
+                            AuctionID = auction.AuctionID,
+                            Message = $"Your previous bid of {auction.CurrentPrice:C} was outbid for {auction.ProductName}.",
+                            CreatedAt = DateTime.Now,
+                            IsRead = false
+                        };
                         _dbContext.Notifications.InsertOnSubmit(notification);
                     }
                 }
@@ -85,6 +85,26 @@ namespace BidUp_App.Views.Bidder
                 auction.CurrentPrice = (double)bidAmount;
                 auction.CurrentBidderID = _currentBidderId;
 
+                // Creează un mesaj descriptiv
+                var bidderName = _dbContext.Users.FirstOrDefault(u => u.UserID == _currentBidderId)?.FullName;
+                var message = $"Bidder {bidderName} placed a bid of {bidAmount:C} on {auction.ProductName}.";
+
+                // Creează logul pentru acest eveniment
+                var log = new Log
+                {
+                    Timestamp = DateTime.Now,
+                    EventType = "Bid",
+                    Message = message,
+                    DynamicData = Newtonsoft.Json.JsonConvert.SerializeObject(new
+                    {
+                        BidderID = _currentBidderId,
+                        ProductID = auction.ProductID,
+                        BidAmount = bidAmount
+                    })
+                };
+
+                // Salvează logul în baza de date
+                _dbContext.Logs.InsertOnSubmit(log);
 
                 // Salvează modificările în baza de date
                 _dbContext.SubmitChanges();
@@ -99,6 +119,7 @@ namespace BidUp_App.Views.Bidder
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
 
 

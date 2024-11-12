@@ -21,7 +21,6 @@ namespace BidUp_App.Views.Bidder
             _currentBidderId = currentBidderId;
 
             LoadAuctions();
-            UpdateWalletBalance();
             CheckNotifications();
 
             InitializeTimers();
@@ -73,12 +72,6 @@ namespace BidUp_App.Views.Bidder
             AuctionsList.ItemsSource = auctions;
         }
 
-        private void UpdateWalletBalance()
-        {
-            _dbContext.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, _dbContext.Wallets);
-            var wallet = _dbContext.Wallets.FirstOrDefault(w => w.UserID == _currentBidderId);
-            WalletBalanceText.Text = wallet != null ? $"{wallet.Balance:C}" : "$0.00";
-        }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -131,7 +124,6 @@ namespace BidUp_App.Views.Bidder
                     if (bidWindow.ShowDialog() == true)
                     {
                         LoadAuctions();
-                        UpdateWalletBalance();
                     }
                 }
                 else
@@ -168,7 +160,6 @@ namespace BidUp_App.Views.Bidder
         {
             _timer.Stop();
             LoadAuctions();
-            UpdateWalletBalance();
             _timer.Start();
         }
     }

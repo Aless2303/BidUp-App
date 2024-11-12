@@ -73,6 +73,7 @@ namespace BidUp_App.Views.Seller
 
                 int productId = newProduct.ProductID;
 
+                // Create auction and add to database
                 var newAuction = new Auction
                 {
                     ProductID = productId,
@@ -89,6 +90,28 @@ namespace BidUp_App.Views.Seller
                 _dbContext.Auctions.InsertOnSubmit(newAuction);
                 _dbContext.SubmitChanges();
 
+                int auctionId = newAuction.AuctionID;
+
+                // Create log for this event
+                var sellerName = _dbContext.Users.FirstOrDefault(u => u.UserID == _sellerId)?.FullName;
+                var message = $"Seller {sellerName} added {productName} to the auction starting at {startingPrice:C}.";
+
+                var log = new Log
+                {
+                    Timestamp = DateTime.Now,
+                    EventType = "AddAuction",
+                    Message = message,
+                    DynamicData = Newtonsoft.Json.JsonConvert.SerializeObject(new
+                    {
+                        SellerID = _sellerId,
+                        AuctionID = auctionId,
+                        StartPrice = startingPrice
+                    })
+                };
+
+                _dbContext.Logs.InsertOnSubmit(log);
+                _dbContext.SubmitChanges();
+
                 MessageBox.Show("Auction added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
@@ -96,6 +119,8 @@ namespace BidUp_App.Views.Seller
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {

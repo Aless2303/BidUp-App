@@ -21,8 +21,8 @@ namespace BidUp_App.Views.Bidder
             _dbContext = new DataContextDataContext();
 
             LoadWalletBalance();
-            InitializeWalletUpdateTimer();
             LoadProfileView(); // Default View
+            InitializeWalletUpdateTimer();
         }
 
         private void LoadProfileView()
@@ -42,22 +42,46 @@ namespace BidUp_App.Views.Bidder
         {
             _walletUpdateTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(1)
+                Interval = TimeSpan.FromSeconds(1) // Interval de verificare la fiecare secundă
             };
-            _walletUpdateTimer.Tick += (s, e) =>
-            {
-                var wallet = _dbContext.Wallets.FirstOrDefault(w => w.UserID == _user.m_userID);
-                if (wallet != null)
-                {
-                    decimal.TryParse(WalletBalanceText.Text, System.Globalization.NumberStyles.Currency,
-                        System.Globalization.CultureInfo.CurrentCulture, out var displayedBalance);
-
-                    if (wallet.Balance != displayedBalance)
-                        WalletBalanceText.Text = $"{wallet.Balance:C}";
-                }
-            };
+            _walletUpdateTimer.Tick += WalletUpdateTimer_Tick;
             _walletUpdateTimer.Start();
         }
+
+        private void WalletUpdateTimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                // Obține soldul curent din baza de date
+                _dbContext.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, _dbContext.Wallets);
+                var wallet = _dbContext.Wallets.FirstOrDefault(w => w.UserID == _user.m_userID);
+
+                if (wallet != null)
+                {
+                    // Obține soldul afișat în prezent
+                    if (decimal.TryParse(WalletBalanceText.Text, System.Globalization.NumberStyles.Currency,
+                        System.Globalization.CultureInfo.CurrentCulture, out var currentDisplayedBalance))
+                    {
+                        // Compară valoarea afișată cu valoarea din baza de date
+                        if (wallet.Balance != currentDisplayedBalance)
+                        {
+                            // Dacă este diferită, actualizează UI-ul
+                            WalletBalanceText.Text = $"{wallet.Balance:C}";
+                        }
+                    }
+                    else
+                    {
+                        // Dacă parsarea eșuează, actualizează direct cu valoarea din baza de date
+                        WalletBalanceText.Text = $"{wallet.Balance:C}";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating wallet balance: {ex.Message}");
+            }
+        }
+
 
         private void ProfileButton_Click(object sender, RoutedEventArgs e)
         {

@@ -310,6 +310,7 @@
     </Compile>
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Interfaces\IUser.cs" />
+    <Compile Include="Models\Loguri\Logs.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\StartTimeConverter.cs" />
     <Compile Include="Models\StartTimeVisibilityConverter.cs" />
