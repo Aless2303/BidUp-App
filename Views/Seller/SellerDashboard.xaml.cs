@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Threading;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using BidUp_App.Models.Users;
+using BidUp_App.Views.Bidder;
 
 namespace BidUp_App.Views.Seller
 {
@@ -12,6 +15,7 @@ namespace BidUp_App.Views.Seller
         private readonly BidUp_App.Models.Users.User _user;
         private readonly DataContextDataContext _dbContext;
         private readonly int _sellerID;
+        private DispatcherTimer _walletUpdateTimer;
 
         public SellerDashboard(BidUp_App.Models.Users.User user)
         {
@@ -20,85 +24,70 @@ namespace BidUp_App.Views.Seller
             _dbContext = new DataContextDataContext();
             if (_user is BidUp_App.Models.Users.Seller seller)
             {
-                _sellerID = seller.m_userID; // Obține ID-ul utilizatorului curent
+                _sellerID = seller.m_userID; // Get current user's ID
             }
-            LoadProfile();
+
+            LoadWalletBalance();
+            InitializeWalletUpdateTimer();
+            LoadProfileView(); // Default View on Dashboard load
         }
 
-        private void LoadProfile()
+        private void LoadProfileView()
         {
-            // Încarcă poza de profil dacă există
-            if (!string.IsNullOrEmpty(_user.ProfilePicturePath))
+            // Reuse the ProfileView from the Bidder section
+            var profileView = new ProfileView(_user, _dbContext);
+            MainContentViewbox.Child = profileView; // Load into the main content area
+        }
+
+        private void AddNewAuctionView()
+        {
+            var addAuctionControl = new AddAuctionControl(_sellerID);
+            MainContentViewbox.Child = addAuctionControl; // Load AddAuctionControl
+        }
+
+        private void LoadWalletBalance()
+        {
+            // Fetch wallet balance for the current seller
+            var wallet = _dbContext.Wallets.FirstOrDefault(w => w.UserID == _sellerID);
+            WalletBalanceText.Text = wallet != null ? $"{wallet.Balance:C}" : "$0.00";
+        }
+
+        private void InitializeWalletUpdateTimer()
+        {
+            _walletUpdateTimer = new DispatcherTimer
             {
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(_user.ProfilePicturePath, UriKind.Absolute);
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.EndInit();
+                Interval = TimeSpan.FromSeconds(1) // Update every second
+            };
+            _walletUpdateTimer.Tick += (s, e) =>
+            {
+                var wallet = _dbContext.Wallets.FirstOrDefault(w => w.UserID == _sellerID);
+                if (wallet != null)
+                {
+                    decimal.TryParse(WalletBalanceText.Text, System.Globalization.NumberStyles.Currency,
+                        System.Globalization.CultureInfo.CurrentCulture, out var displayedBalance);
 
-                ProfileImage.Source = bitmap;
-            }
-
-            // Afișează detaliile utilizatorului
-            FullNameTextBlock.Text = _user.m_fullName;
-            EmailTextBlock.Text = _user.m_email;
-            DateOfBirthTextBlock.Text = _user.m_BirthDate.ToString("d");
-            RoleTextBlock.Text = _user.m_role;
+                    if (wallet.Balance != displayedBalance)
+                        WalletBalanceText.Text = $"{wallet.Balance:C}";
+                }
+            };
+            _walletUpdateTimer.Start();
         }
 
         private void ProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            DisplayProfileInfo();
-        }
-
-        private void DisplayProfileInfo()
-        {
-            FullNameTextBlock.Visibility = Visibility.Visible;
-            EmailTextBlock.Visibility = Visibility.Visible;
-            DateOfBirthTextBlock.Visibility = Visibility.Visible;
-            RoleTextBlock.Visibility = Visibility.Visible;
+            LoadProfileView(); // Load ProfileView
         }
 
         private void AddNewAuctionButton_Click(object sender, RoutedEventArgs e)
         {
-            
-            var addAuctionWindow = new AddAuctionWindow(_sellerID);
-            this.Close();// Instanțiere fereastră `AddAuctionWindow` cu ID-ul sellerului
-            addAuctionWindow.Show(); // Afișează fereastra
+            AddNewAuctionView(); // Load AddAuctionControl
         }
-
 
         private void ViewYourAuctionsButton_Click(object sender, RoutedEventArgs e)
         {
-            var viewAuctionsWindow = new ViewAuctionsWindow(_user.m_userID); // Transmite ID-ul Seller-ului curent
-            viewAuctionsWindow.ShowDialog();
-            this.Close();
+            // Load ViewAuctionsControl
+            var viewAuctionsControl = new ViewAuctionsControl(_sellerID, this);
+            MainContentViewbox.Child = viewAuctionsControl;
         }
-
-        private void ChangeProfilePicture_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                string selectedFilePath = openFileDialog.FileName;
-
-                ProfileImage.Source = new BitmapImage(new Uri(selectedFilePath));
-                _user.ProfilePicturePath = selectedFilePath;
-
-                SaveProfilePicturePathToDatabase(_user.m_userID, selectedFilePath);
-            }
-        }
-
-        private void SaveProfilePicturePathToDatabase(int userId, string profilePicturePath)
-        {
-            var user = _dbContext.Users.FirstOrDefault(u => u.UserID == userId);
-            if (user != null)
-            {
-                user.ProfilePicturePath = profilePicturePath;
-                _dbContext.SubmitChanges();
-            }
-        }
-
     }
 }

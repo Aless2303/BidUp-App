@@ -362,14 +362,14 @@
     <Compile Include="Views\Bidder\ViewAuctionsWindowBidder.xaml.cs">
       <DependentUpon>ViewAuctionsWindowBidder.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Seller\AddAuctionWindow.xaml.cs">
-      <DependentUpon>AddAuctionWindow.xaml</DependentUpon>
+    <Compile Include="Views\Seller\AddAuctionControl.xaml.cs">
+      <DependentUpon>AddAuctionControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Seller\SellerDashboard.xaml.cs">
       <DependentUpon>SellerDashboard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Seller\ViewAuctionsWindow.xaml.cs">
-      <DependentUpon>ViewAuctionsWindow.xaml</DependentUpon>
+    <Compile Include="Views\Seller\ViewAuctionsControl.xaml.cs">
+      <DependentUpon>ViewAuctionsControl.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -439,7 +439,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Seller\AddAuctionWindow.xaml">
+    <Page Include="Views\Seller\AddAuctionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -447,7 +447,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Seller\ViewAuctionsWindow.xaml">
+    <Page Include="Views\Seller\ViewAuctionsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

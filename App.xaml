@@ -4,6 +4,16 @@
              xmlns:local="clr-namespace:BidUp_App"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="MinimalisticHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#3E3E5E"/>
+            <Setter Property="Foreground" Value="#E1E1E6"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderBrush" Value="#282846"/>
+            <Setter Property="BorderThickness" Value="1,0,1,1"/>
+        </Style>
+
     </Application.Resources>
 </Application>

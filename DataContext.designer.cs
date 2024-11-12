@@ -51,7 +51,7 @@ namespace BidUp_App
     #endregion
 		
 		public DataContextDataContext() : 
-				base(global::BidUp_App.Properties.Settings.Default.BidUp_AppConnectionString1, mappingSource)
+				base(global::BidUp_App.Properties.Settings.Default.BidUp_AppConnectionString2, mappingSource)
 		{
 			OnCreated();
 		}
@@ -226,7 +226,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
 		public string ProductName
 		{
 			get
@@ -674,7 +674,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardNumber", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardNumber", DbType="NVarChar(20) NOT NULL", CanBeNull=false)]
 		public string CardNumber
 		{
 			get
@@ -694,7 +694,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardHolderName", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardHolderName", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
 		public string CardHolderName
 		{
 			get
@@ -734,7 +734,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CVV", DbType="VarChar(5) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CVV", DbType="NVarChar(5) NOT NULL", CanBeNull=false)]
 		public string CVV
 		{
 			get
@@ -778,7 +778,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Balance", DbType="Decimal(18,2)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Balance", DbType="Decimal(18,0)")]
 		public System.Nullable<decimal> Balance
 		{
 			get
@@ -1188,7 +1188,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
 		public string ProductName
 		{
 			get
@@ -1208,7 +1208,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)")]
 		public string Description
 		{
 			get
@@ -1228,7 +1228,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductImagePath", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductImagePath", DbType="NVarChar(MAX)")]
 		public string ProductImagePath
 		{
 			get
@@ -1248,7 +1248,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category", DbType="NVarChar(50)")]
 		public string Category
 		{
 			get
@@ -1479,7 +1479,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
 		public string FullName
 		{
 			get
@@ -1499,7 +1499,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
 		public string Email
 		{
 			get
@@ -1519,7 +1519,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PasswordHash", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PasswordHash", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
 		public string PasswordHash
 		{
 			get
@@ -1539,7 +1539,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Role", DbType="VarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Role", DbType="NVarChar(20)")]
 		public string Role
 		{
 			get
@@ -1579,7 +1579,7 @@ namespace BidUp_App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProfilePicturePath", DbType="VarChar(500)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProfilePicturePath", DbType="NVarChar(500)")]
 		public string ProfilePicturePath
 		{
 			get

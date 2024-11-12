@@ -33,6 +33,7 @@ namespace BidUp_App.Views.Bidder
 
         private void LoadWalletBalance()
         {
+            _dbContext.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, _dbContext.Wallets);
             var wallet = _dbContext.Wallets.FirstOrDefault(w => w.UserID == _user.m_userID);
             WalletBalanceText.Text = wallet != null ? $"{wallet.Balance:C}" : "$0.00";
         }

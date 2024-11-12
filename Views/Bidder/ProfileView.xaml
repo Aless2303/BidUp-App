@@ -24,7 +24,7 @@
 
         <!-- Profile Picture and Card Details -->
         <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Border Width="150" Height="150" CornerRadius="75" BorderBrush="#BDC3C7" BorderThickness="3" Margin="0,20" Background="#ECF0F1">
+            <Border Width="150" Height="150" CornerRadius="0" BorderBrush="#BDC3C7" BorderThickness="3" Margin="0,20" Background="#ECF0F1">
                 <Image x:Name="ProfileImage" Stretch="Fill"/>
             </Border>
             <Button Content="Change Picture" Margin="0,10,0,0" Click="ChangeProfilePicture_Click"/>
